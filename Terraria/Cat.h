@@ -11,7 +11,7 @@ class Cat : public Animable
 public:
 	Cat(sf::Texture& texture, std::string animationsDataFileName);
 
-	float speed = 500.0f;
+	float speed = 600.0f;
 	void physicsProcess(float delta);
 private:
 	enum Action

@@ -5,12 +5,14 @@ Cat::Cat(sf::Texture& texture, std::string animationsDataFileName) :
 	Animable(texture, animationsDataFileName),
 	m_velocityComponent(*this, {200, 0}, true)
 {	
+	m_velocityComponent.setFriction(400.0f);
+
 	setAction(Action::Idle);
 }
 
 void Cat::physicsProcess(float delta)
 {
-	m_velocityComponent.Process(delta);
+	m_velocityComponent.process(delta);
 
 	bool isMoving = handleMovement(delta);
 
@@ -48,14 +50,13 @@ bool Cat::handleMovement(float delta)
 
 	if (!isLeftKeyPressed && !isRightKeyPressed)
 	{
-		m_velocityComponent.SetVelocity({ 0, m_velocityComponent.GetVelocity().y });
 		return false;
 	}
 
 	float totalSpeed = speed * delta;
 	int directionMultiplier = isRightKeyPressed ? 1 : -1;
 
-	m_velocityComponent.AddVelocity({ totalSpeed * static_cast<float>(directionMultiplier), 0 });
+	m_velocityComponent.addVelocity({ totalSpeed * static_cast<float>(directionMultiplier), 0 });
 
 	float scale = abs(getScale().x);
 	setScale({ scale * -directionMultiplier, scale });
