@@ -10,7 +10,6 @@ void Animable::setCurrentFrame(std::string animationName)
 {
 	if (!m_animationManager.frameExists(animationName))
 	{
-		std::cout << "Frame " << animationName << " does not exist in animation manager." << std::endl;
 		return;
 	}
 	sf::IntRect textureRect = m_animationManager.getFrameTextureRect(animationName);
@@ -23,8 +22,6 @@ void Animable::setCurrentFrame(std::string animationName)
 
 void Animable::setAnimation(std::string animationName)
 {
-	std::cout << "Setting animation to " << animationName << std::endl;
-
 	m_animationManager.setAnimation(animationName);
 	setCurrentFrame(m_animationManager.getCurrentAnimationFrameName());
 }

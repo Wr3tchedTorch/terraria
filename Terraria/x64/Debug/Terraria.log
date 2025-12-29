@@ -1,5 +1,5 @@
-﻿  Animable.cpp
-  Cat.cpp
+﻿  Cat.cpp
+  VelocityComponent.cpp
   main.cpp
   Generating Code...
   Terraria.vcxproj -> C:\Users\Eric\Documents\01_Projects\02_Games\04_CustomEngine\Terraria\x64\Debug\Terraria.exe

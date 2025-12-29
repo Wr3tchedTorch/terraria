@@ -1,30 +1,18 @@
 #include "Cat.h"
 #include <iostream>
 
-Cat::Cat(sf::Texture& texture, std::string animationsDataFileName) : Animable(texture, animationsDataFileName)
+Cat::Cat(sf::Texture& texture, std::string animationsDataFileName) : 
+	Animable(texture, animationsDataFileName),
+	m_velocityComponent(*this, {200, 0}, true)
 {	
 	setAction(Action::Idle);
 }
 
 void Cat::physicsProcess(float delta)
 {
-	float totalSpeed = speed * delta;
+	m_velocityComponent.Process(delta);
 
-	bool isMoving = false;
-
-	bool isLeftKeyPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A);
-	bool isRightKeyPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D);
-
-	if (isLeftKeyPressed || isRightKeyPressed)
-	{
-		isMoving = true;
-		int multiplier = isRightKeyPressed ? 1 : -1;
-
-		move({ totalSpeed * static_cast<float>(multiplier), 0 });
-
-		float scale = abs(getScale().x);
-		setScale({ scale * -multiplier, scale });
-	}
+	bool isMoving = handleMovement(delta);
 
 	if (!isMoving)
 	{
@@ -51,4 +39,26 @@ void Cat::setAction(Action toAction)
 		setAnimation("walk");
 		break;
 	}
+}
+
+bool Cat::handleMovement(float delta)
+{
+	bool isLeftKeyPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A);
+	bool isRightKeyPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D);
+
+	if (!isLeftKeyPressed && !isRightKeyPressed)
+	{
+		m_velocityComponent.SetVelocity({ 0, m_velocityComponent.GetVelocity().y });
+		return false;
+	}
+
+	float totalSpeed = speed * delta;
+	int directionMultiplier = isRightKeyPressed ? 1 : -1;
+
+	m_velocityComponent.AddVelocity({ totalSpeed * static_cast<float>(directionMultiplier), 0 });
+
+	float scale = abs(getScale().x);
+	setScale({ scale * -directionMultiplier, scale });
+
+	return true;
 }

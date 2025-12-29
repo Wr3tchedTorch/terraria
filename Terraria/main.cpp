@@ -25,8 +25,8 @@ int main()
 
 	Cat cat(catsTexture, "Data/black_cat_animations.dat");	
 	cat.setPosition({ static_cast<float>(windowSize.x) / 2, 
-					  static_cast<float>(windowSize.y) / 2 });
-	cat.setScale({ 4.0f, 4.0f });
+					  0 });
+	cat.setScale({ 3.0f, 3.0f });
 
 	int32_t currentTime = 0;
 	int32_t maxTime = 400;

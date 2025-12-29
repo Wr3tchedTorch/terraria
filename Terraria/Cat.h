@@ -1,4 +1,5 @@
 #include "Animable.h"
+#include "VelocityComponent.h"
 
 namespace sf {
 	class Texture;
@@ -10,7 +11,7 @@ class Cat : public Animable
 public:
 	Cat(sf::Texture& texture, std::string animationsDataFileName);
 
-	float speed = 100.0f;
+	float speed = 500.0f;
 	void physicsProcess(float delta);
 private:
 	enum Action
@@ -20,6 +21,8 @@ private:
 		Walking
 	};
 	Action m_currentAction;
+	VelocityComponent m_velocityComponent;
 
 	void setAction(Action toAction);
+	bool handleMovement(float delta);
 };
