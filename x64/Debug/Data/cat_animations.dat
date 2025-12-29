@@ -1,0 +1,4 @@
+# ID   X    Y    W    H
+idle   2    2    32   30
+jump   37   2    38   30
+walk2  80   0    38   32

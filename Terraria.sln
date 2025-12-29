@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36705.20 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Terraria", "Terraria\Terraria.vcxproj", "{9F5BAA67-EDCC-44BE-AEBA-08AB4A6BACDF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F5BAA67-EDCC-44BE-AEBA-08AB4A6BACDF}.Debug|x64.ActiveCfg = Debug|x64
+		{9F5BAA67-EDCC-44BE-AEBA-08AB4A6BACDF}.Debug|x64.Build.0 = Debug|x64
+		{9F5BAA67-EDCC-44BE-AEBA-08AB4A6BACDF}.Debug|x86.ActiveCfg = Debug|Win32
+		{9F5BAA67-EDCC-44BE-AEBA-08AB4A6BACDF}.Debug|x86.Build.0 = Debug|Win32
+		{9F5BAA67-EDCC-44BE-AEBA-08AB4A6BACDF}.Release|x64.ActiveCfg = Release|x64
+		{9F5BAA67-EDCC-44BE-AEBA-08AB4A6BACDF}.Release|x64.Build.0 = Release|x64
+		{9F5BAA67-EDCC-44BE-AEBA-08AB4A6BACDF}.Release|x86.ActiveCfg = Release|Win32
+		{9F5BAA67-EDCC-44BE-AEBA-08AB4A6BACDF}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8D0DD45B-DF94-4E7E-998F-0B32FD908B89}
+	EndGlobalSection
+EndGlobal
