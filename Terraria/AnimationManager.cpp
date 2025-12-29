@@ -42,7 +42,7 @@ void AnimationManager::setAnimation(std::string animationPrefix)
 
 void AnimationManager::nextFrame(bool loop, std::optional<std::string> nextAnimationPrefix)
 {
-    std::string frameName = m_currentAnimation + std::to_string(m_currentFrame);
+    std::string frameName = m_currentAnimation + std::to_string(m_currentFrame+1);
     if (frameExists(frameName))
     {
         m_currentFrame++;

@@ -8,9 +8,18 @@ namespace sf {
 class Cat : public Animable
 {
 public:
+	Cat(sf::Texture& texture, std::string animationsDataFileName);
+
 	float speed = 100.0f;
-
-	using Animable::Animable;
 	void physicsProcess(float delta);
-};
+private:
+	enum Action
+	{
+		None,
+		Idle,
+		Walking
+	};
+	Action m_currentAction;
 
+	void setAction(Action toAction);
+};

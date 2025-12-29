@@ -13,11 +13,14 @@ public:
 	void playAnimation(float delta);
 	void setMaxAnimationDelayTime(float timeInMilliseconds);
 
-private:
-	float m_currentAnimationTime = 0;
-	float m_maxAnimationDelayTime = 100.0f;
-	int m_currentFrame = 0;	
+protected:
+	float m_animationSpeedScale = 1.0f;
 
+private:
+	float m_maxAnimationSpeed = 1000.0f;
+	float m_maxAnimationDelayTime = 100.0f;
+	float m_currentAnimationTime = 0;
+	int m_currentFrame = 0;	
 	AnimationManager m_animationManager;
 
 	void nextFrame();

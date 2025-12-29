@@ -10,6 +10,7 @@ void Animable::setCurrentFrame(std::string animationName)
 {
 	if (!m_animationManager.frameExists(animationName))
 	{
+		std::cout << "Frame " << animationName << " does not exist in animation manager." << std::endl;
 		return;
 	}
 	sf::IntRect textureRect = m_animationManager.getFrameTextureRect(animationName);
@@ -22,14 +23,15 @@ void Animable::setCurrentFrame(std::string animationName)
 
 void Animable::setAnimation(std::string animationName)
 {
+	std::cout << "Setting animation to " << animationName << std::endl;
+
 	m_animationManager.setAnimation(animationName);
 	setCurrentFrame(m_animationManager.getCurrentAnimationFrameName());
 }
 
 void Animable::playAnimation(float delta)
 {
-	m_currentAnimationTime += 1000 * delta;
-	std::cout << "delta: " << std::to_string(delta) << " delta * 1000: " << std::to_string(1000 * delta) << " current_animation_time: " << std::to_string(m_currentAnimationTime) << "\n";
+	m_currentAnimationTime += m_maxAnimationSpeed * m_animationSpeedScale * delta;
 	
 	if (m_currentAnimationTime >= m_maxAnimationDelayTime)
 	{

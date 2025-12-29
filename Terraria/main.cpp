@@ -26,11 +26,8 @@ int main()
 	Cat cat(catsTexture, "Data/black_cat_animations.dat");	
 	cat.setPosition({ static_cast<float>(windowSize.x) / 2, 
 					  static_cast<float>(windowSize.y) / 2 });
+	cat.setScale({ 4.0f, 4.0f });
 
-	std::string animationWalkPrefix = "walk";
-	std::string animationIdlePrefix = "idle";
-	cat.setAnimation(animationWalkPrefix);
-	
 	int32_t currentTime = 0;
 	int32_t maxTime = 400;
 	// run the program as long as the window is open
@@ -53,8 +50,8 @@ int main()
 
 		window.clear(sf::Color(160, 217, 239));
 
-		cat.PhysicsProcess(delta);
-		cat.PlayAnimation(delta);
+		cat.physicsProcess(delta);
+		cat.playAnimation(delta);
 
 		window.draw(cat);
 
