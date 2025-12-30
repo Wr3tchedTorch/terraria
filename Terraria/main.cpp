@@ -1,6 +1,7 @@
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
 #include <iostream>
+#include <unordered_set>
 
 #include "Cat.h"
 
@@ -28,6 +29,11 @@ int main()
 					  0 });
 	cat.setScale({ 3.0f, 3.0f });
 
+
+	sf::Texture dirtTexture("Images/dirt.png");
+	sf::Sprite dirt(dirtTexture, {{18, 0}, {16, 16}});
+	dirt.setPosition({ 50, 50 });
+
 	int32_t currentTime = 0;
 	int32_t maxTime = 400;
 	// run the program as long as the window is open
@@ -54,6 +60,13 @@ int main()
 		cat.playAnimation(delta);
 
 		window.draw(cat);
+
+		dirt.setPosition({ 50, 50 });
+		window.draw(dirt);
+		dirt.setPosition({ 66, 50 });
+		window.draw(dirt);
+		dirt.setPosition({ 82, 50 });
+		window.draw(dirt);
 
 		window.display();
 	}

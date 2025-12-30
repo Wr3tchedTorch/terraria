@@ -132,6 +132,7 @@
     <ClCompile Include="Cat.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="GridManager.cpp" />
     <ClCompile Include="VelocityComponent.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -141,6 +142,7 @@
     <ClInclude Include="Cat.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="GridManager.h" />
     <ClInclude Include="VelocityComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
