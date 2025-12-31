@@ -7,7 +7,7 @@ Cat::Cat(sf::Texture& texture, std::string animationsDataFileName) :
 	Animable(texture, animationsDataFileName),
 	m_velocityComponent(*this, {300, 0}, true)
 {	
-	m_velocityComponent.setFriction(800.0f);
+	m_velocityComponent.setFriction(1000.0f);
 
 	setAction(Action::Idle);
 }
@@ -45,6 +45,11 @@ void Cat::physicsProcess(float delta, std::vector<sf::Vector2f> dirtPositions)
 
 	bool isMoving = handleMovement(delta);
 
+	if (!isGrounded)
+	{
+		setAction(Action::Jumping);
+		return;
+	}
 	if (!isMoving)
 	{
 		setAction(Action::Idle);		
@@ -66,8 +71,11 @@ void Cat::setAction(Action toAction)
 	case Action::Idle:
 		setAnimation("idle");
 		break;
-	case Action::Walking:		
+	case Action::Walking:
 		setAnimation("walk");
+		break;
+	case Action::Jumping:
+		setAnimation("jump");
 		break;
 	}
 }
@@ -110,4 +118,5 @@ void Cat::jump()
 	}
 
 	m_velocityComponent.addVelocity({ 0, -jumpForce });
+	setAction(Action::Jumping);
 }
