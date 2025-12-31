@@ -12,7 +12,10 @@ public:
 	Cat(sf::Texture& texture, std::string animationsDataFileName);
 
 	float speed = 600.0f;
-	void physicsProcess(float delta);
+	float jumpForce = 1200.0f;
+
+	void physicsProcess(float delta, std::vector<sf::Vector2f> dirtPositions);
+	void jump();
 private:
 	enum Action
 	{
@@ -22,6 +25,7 @@ private:
 	};
 	Action m_currentAction;
 	VelocityComponent m_velocityComponent;
+	bool isGrounded = false;
 
 	void setAction(Action toAction);
 	bool handleMovement(float delta);

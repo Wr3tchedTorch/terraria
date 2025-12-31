@@ -31,8 +31,8 @@ public:
 
 	GridManager();
 	
-	void loadChunksOnScreen(/*pass screen position/size as params*/ bool loadOnlyVisibleChunks = true);
-	sf::Vector2i worldToChunk(sf::Vector2f worldPos);
+	void loadChunksOnScreen(/*pass screen position/size as params*/ bool loadOnlyVisibleChunks = true);	
+
 	std::vector<Tile*> getNearbyTiles(int x, int y);
 	std::vector<Chunk*> getNearbyChunks(int x, int y);
 

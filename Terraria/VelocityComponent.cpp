@@ -21,7 +21,7 @@ void VelocityComponent::process(float delta)
 	{
 		addFriction(delta);
 	}
-	std::cout << "velocity, x: " << std::to_string(m_velocity.x) << " y: " << std::to_string(m_velocity.y) << "\n";
+	//std::cout << "velocity, x: " << std::to_string(m_velocity.x) << " y: " << std::to_string(m_velocity.y) << "\n";
 	m_parentTransformable.move(m_velocity * delta);
 }
 
