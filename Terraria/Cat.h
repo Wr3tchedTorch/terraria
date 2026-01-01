@@ -1,4 +1,5 @@
 #include "Animable.h"
+#include <functional>
 #include "VelocityComponent.h"
 
 namespace sf {
@@ -14,7 +15,8 @@ public:
 	float speed = 900.0f;
 	float jumpForce = 1200.0f;
 
-	void physicsProcess(float delta, std::vector<sf::Vector2f> dirtPositions);
+	void physicsProcess(float delta, std::function<bool(sf::FloatRect)> tilemapCollision);
+
 	void jump();
 private:
 	enum Action

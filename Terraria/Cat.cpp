@@ -8,30 +8,26 @@ Cat::Cat(sf::Texture& texture, std::string animationsDataFileName) :
 	m_velocityComponent(*this, {300, 0}, true)
 {	
 	m_velocityComponent.setFriction(1000.0f);
+	m_velocityComponent.setGravity(1);
 
 	setAction(Action::Idle);
 }
 
-void Cat::physicsProcess(float delta, std::vector<sf::Vector2f> dirtPositions)
-{
-	sf::Vector2f size(m_sprite.getGlobalBounds().size);
-	sf::FloatRect collisionRect({ {getPosition().x, getPosition().y},
-								{size.x, size.y+10}});
-	
+void Cat::physicsProcess(float delta, std::function<bool(sf::FloatRect)> tilemapCollision)
+{	
 	bool colided = false;
 
-	for (const auto& dirtPosition : dirtPositions)
+	sf::Vector2f size(m_sprite.getGlobalBounds().size);
+	sf::FloatRect collisionRect({ {getPosition().x, getPosition().y},
+								{size.x, size.y}});
+	if (tilemapCollision(collisionRect))
 	{
-		if (CollisionComponent::checkTileAABBCollision(collisionRect, { dirtPosition, {16*3, 16*3} }))
+		m_velocityComponent.setSimulatePhysics(false);
+		if (!isGrounded)
 		{
-			m_velocityComponent.setSimulatePhysics(false);
-			if (!isGrounded)
-			{
-				m_velocityComponent.setVelocity({ m_velocityComponent.getVelocity().x, 0 });
-			}
-			colided = true;
-			break;
+			m_velocityComponent.setVelocity({ m_velocityComponent.getVelocity().x, 0 });
 		}
+		colided = true;
 	}
 
 	isGrounded = colided;

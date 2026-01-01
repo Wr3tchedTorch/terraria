@@ -132,8 +132,10 @@
     <ClCompile Include="Cat.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="DebugStatics.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GridManager.cpp" />
+    <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="VelocityComponent.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -143,8 +145,10 @@
     <ClInclude Include="Cat.h" />
     <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="DebugStatics.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GridManager.h" />
+    <ClInclude Include="TileMap.h" />
     <ClInclude Include="VelocityComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

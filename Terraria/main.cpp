@@ -2,7 +2,8 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
 #include <unordered_set>
-
+#include "TileMap.h"
+#include "DebugStatics.h"
 #include "Cat.h"
 
 sf::Vector2u windowSize({ 800, 600 });
@@ -17,45 +18,48 @@ int main()
 		};
 
 	sf::Texture catsTexture("Images/cats.png");
-	Cat cat(catsTexture, "Data/black_cat_animations.dat");	
-	cat.setPosition({ static_cast<float>(windowSize.x) / 2, 0 });
-	cat.setScale({ 3.0f, 3.0f });
+	Cat themis(catsTexture, "Data/black_cat_animations.dat");	
+	themis.setPosition({ static_cast<float>(windowSize.x) / 2, static_cast<float>(windowSize.y)/2+100 });
 
-	const auto onKeyPressed = [&window, &cat](const sf::Event::KeyPressed& keyPressed)
+	const auto onKeyPressed = [&window, &themis](const sf::Event::KeyPressed& keyPressed)
 		{
 			if (keyPressed.scancode == sf::Keyboard::Scancode::Space)
 			{
-				cat.jump();
+				themis.jump();
 			}
 		};
 
-	sf::Texture dirtTexture("Images/dirt.png");
-	
-	// create a triangle strip
-	sf::VertexArray triangleStrip(sf::PrimitiveType::TriangleStrip, 4);
+	constexpr std::array<int, 128> level = {
+		// Row 0: Floating Island top
+	   -1, -1, -1, -1, -1,  0,  1,  2, -1, -1, -1, -1, -1, -1, -1, -1,
+	    // Row 1: Floating Island bottom
+	   -1, -1, -1, -1, -1, 32, 33, 34, -1, -1, -1, -1, -1, -1, -1, -1,
+		// Row 2: Air gap
+	   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+		// Row 3: Surface peaks
+	   -1, -1, -1, -1,  0,  1,  1,  1,  2, -1, -1,  0,  1,  2, -1, -1,
+		// Row 4: Dirt layer with cave entrance
+	    0,  1,  2, -1, 16, 17, 17, 17, 18, -1,  0, 17, 17, 18, -1, -1,
+		// Row 5: Underground pockets
+		16, 17, 18, -1, 32, 11, 11, 11, 11, -1, 16, 11, 11, 11, -1, -1,
+		// Row 6: Dense dirt layer
+		32, 11, 11, 11, 17, 17, 17, 17, 11, 11, 17, 17, 17, 11, 11, 17,
+		// Row 7: Solid base foundation
+		11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11
+	};
+	TileMap tilemap;
+	if (!tilemap.load("Images/dirt.png", { 16, 16 }, level.data(), 16, 8, 2))
+		return -1;
 
-	// define it as a rectangle, located at (10, 10) and with size 100x100
-	triangleStrip[0].position = sf::Vector2f(10.f, 10.f);
-	triangleStrip[1].position = sf::Vector2f(10.f, 110.f);
-	triangleStrip[2].position = sf::Vector2f(110.f, 10.f);
-	triangleStrip[3].position = sf::Vector2f(110.f, 110.f);
-
-	// define its texture area to be a 25x50 rectangle starting at (0, 0)
-	triangleStrip[0].texCoords = sf::Vector2f(0.f, 0.f);
-	triangleStrip[1].texCoords = sf::Vector2f(0.f, 50.f);
-	triangleStrip[2].texCoords = sf::Vector2f(25.f, 0.f);
-	triangleStrip[3].texCoords = sf::Vector2f(25.f, 50.f);
+	tilemap.setPosition({ static_cast<float>(windowSize.x) / 2 , 450 });
 
 	int32_t currentTime = 0;
 	int32_t maxTime = 400;
 	// run the program as long as the window is open
 
-	std::vector<sf::Vector2f> dirtPositions;
-	for (int i = 0; i < 10; i++)
-	{
-		dirtPositions.push_back({ static_cast<float>(windowSize.x) / 2 + 16 * 3 * i, 555 });
-		dirtPositions.push_back({ static_cast<float>(windowSize.x) / 2 - 16 * 3 * i, 555 });
-	}
+
+	DebugStatics debugStatics;
+	debugStatics.createDebugRectangle(sf::FloatRect({ {0, 0}, {200.0f, 150.0f} }));
 
 	sf::Clock clock;
 	while (window.isOpen())
@@ -68,11 +72,14 @@ int main()
 
 		window.clear(sf::Color(160, 217, 239));
 
-		cat.physicsProcess(delta, dirtPositions);
-		cat.playAnimation(delta);
+		themis.physicsProcess(delta, [&tilemap](sf::FloatRect rect) -> bool {
+			return tilemap.overlaps(rect);
+			});
+		themis.playAnimation(delta);
 
-		window.draw(cat);
-		window.draw(triangleStrip, &dirtTexture);	
+		window.draw(themis);
+		window.draw(tilemap);
+		window.draw(debugStatics);
 
 		window.display();
 	}

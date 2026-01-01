@@ -15,7 +15,7 @@ void Animable::setCurrentFrame(std::string animationName)
 	sf::IntRect textureRect = m_animationManager.getFrameTextureRect(animationName);
 
 	sf::Vector2f spriteSize(textureRect.size);
-	m_sprite.setOrigin({ spriteSize.x / 2, spriteSize.y / 2 });
+	//m_sprite.setOrigin({ spriteSize.x / 2, spriteSize.y / 2 });
 
 	m_sprite.setTextureRect(textureRect);
 }
